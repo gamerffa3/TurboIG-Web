@@ -3,36 +3,46 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>TurboIG — Minecraft SMP Creator | Unique Videos & Every Game</title>
+  <title>TurboIG — Minecraft SMP Creator | Unique Videos</title>
+  <meta name="description" content="TurboIG - Minecraft SMP creator. Unique videos, blocky worlds, and every new game!">
   <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { background-color: #0a0705; font-family: 'Outfit', sans-serif; color: #fff6e0; line-height: 1.4; overflow-x: hidden; }
     :root { --lava: #ff2d1f; --gold: #ffcc00; --text-dim: #c9b896; --text-muted: #8a7a60; }
+    
+    /* Background Layers */
     .bg-layer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
     .bg-gradient { background: radial-gradient(circle at 80% 10%, rgba(255,204,0,0.2), transparent 60%), radial-gradient(circle at 10% 85%, rgba(255,45,31,0.2), transparent 65%), radial-gradient(circle at 50% 50%, rgba(255,122,0,0.1), transparent 70%), linear-gradient(135deg, #0a0705 0%, #1a0e08 100%); }
     .pixel-grid { background-image: linear-gradient(to right, rgba(255,204,0,0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,204,0,0.04) 1px, transparent 1px); background-size: 48px 48px; mask: radial-gradient(ellipse at center, black 40%, transparent 85%); }
-    .noise-texture { background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.55'/%3E%3C/svg%3E"); background-repeat: repeat; background-size: 180px; mix-blend-mode: overlay; opacity: 0.55; }
+    .noise-texture { background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.55'/%3E%3C/svg%3E"); background-repeat: repeat; background-size: 180px; mix-blend-mode: overlay; opacity: 0.55; }
+    
+    /* Ember Particles */
     .ember-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2; overflow: hidden; }
-    .ember { position: absolute; bottom: -20px; width: 4px; height: 4px; background: radial-gradient(circle, #ffcc00, #ff2d1f); border-radius: 50%; filter: blur(1px); animation: riseUp linear forwards; }
-    @keyframes riseUp { 0% { transform: translateY(0) translateX(0) scale(1); opacity: 0.9; } 100% { transform: translateY(-110vh) translateX(var(--drift, 60px)) scale(0.6); opacity: 0; } }
+    .ember { position: absolute; bottom: -20px; width: 5px; height: 5px; background: radial-gradient(circle, #ffcc00, #ff2d1f); border-radius: 50%; filter: blur(1px); animation: riseUp linear forwards; }
+    @keyframes riseUp { 0% { transform: translateY(0) translateX(0); opacity: 0.9; } 100% { transform: translateY(-110vh) translateX(var(--drift, 50px)); opacity: 0; } }
+    
     .app-container { position: relative; z-index: 5; }
+    
+    /* Glass Navigation */
     .glass-nav { position: sticky; top: 0; backdrop-filter: blur(12px); background: rgba(10,7,5,0.7); border-bottom: 1px solid rgba(255,204,0,0.2); padding: 1rem 2rem; z-index: 100; }
-    .nav-inner { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+    .nav-inner { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
     .brand { display: flex; align-items: center; gap: 12px; font-family: 'Bungee', cursive; font-size: 1.9rem; color: var(--gold); text-shadow: 2px 2px 0 var(--lava); }
-    .brand-logo { height: 52px; width: auto; max-width: 52px; object-fit: contain; filter: drop-shadow(0 0 8px rgba(255,204,0,0.7)); transition: transform 0.2s; border-radius: 12px; animation: logoGlow 3s infinite; }
-    .brand-logo:hover { transform: scale(1.05); animation-play-state: paused; }
+    .brand-logo { height: 52px; width: auto; max-width: 52px; object-fit: contain; filter: drop-shadow(0 0 8px rgba(255,204,0,0.7)); border-radius: 12px; animation: logoGlow 2s infinite; }
     @keyframes logoGlow { 0% { filter: drop-shadow(0 0 2px #ffcc00); } 50% { filter: drop-shadow(0 0 12px #ff2d1f); } 100% { filter: drop-shadow(0 0 2px #ffcc00); } }
     .brand-dot { display: inline-block; width: 14px; height: 14px; background: var(--lava); border-radius: 2px; margin: 0 4px; animation: pulseScale 1.2s infinite; }
     @keyframes pulseScale { 0% { transform: scale(1); box-shadow: 0 0 0 0 var(--lava); } 50% { transform: scale(1.3); box-shadow: 0 0 0 4px rgba(255,45,31,0.4); } 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,45,31,0); } }
     .nav-links { display: flex; gap: 2rem; }
-    .nav-links a { font-family: 'JetBrains Mono', monospace; text-transform: uppercase; color: var(--text-dim); text-decoration: none; transition: 0.2s; border-bottom: 2px solid transparent; padding-bottom: 4px; }
+    .nav-links a { font-family: 'JetBrains Mono', monospace; text-transform: uppercase; color: var(--text-dim); text-decoration: none; transition: 0.2s; border-bottom: 2px solid transparent; padding-bottom: 4px; cursor: pointer; }
     .nav-links a:hover { color: var(--gold); transform: translateY(-2px); border-bottom-color: var(--gold); }
-    @media (max-width: 720px) { .nav-links { display: none; } .brand-logo { height: 40px; } }
+    .mobile-menu-btn { display: none; background: none; border: none; color: var(--gold); font-size: 1.8rem; cursor: pointer; }
+    @media (max-width: 720px) { .nav-links { display: none; position: absolute; top: 70px; left: 0; right: 0; background: rgba(10,7,5,0.95); backdrop-filter: blur(12px); flex-direction: column; padding: 1rem; text-align: center; gap: 1rem; border-bottom: 1px solid rgba(255,204,0,0.2); } .nav-links.active { display: flex; } .mobile-menu-btn { display: block; } .brand-logo { height: 40px; } .brand { font-size: 1.4rem; } }
+    
     .container { max-width: 1300px; margin: 0 auto; padding: 2rem; }
     .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; margin-bottom: 3rem; }
-    @media (max-width: 960px) { .hero-grid { grid-template-columns: 1fr; text-align: center; } }
+    @media (max-width: 960px) { .hero-grid { grid-template-columns: 1fr; text-align: center; } .cta-group { justify-content: center; } .tagline { margin-left: auto; margin-right: auto; } }
+    
     .kicker { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--gold); border: 1px solid rgba(255,204,0,0.5); padding: 0.3rem 0.8rem; border-radius: 40px; margin-bottom: 1.5rem; background: rgba(0,0,0,0.3); }
     .blink-lava { display: inline-block; width: 10px; height: 10px; background: var(--lava); margin-right: 8px; border-radius: 1px; animation: pulseScale 1s infinite; }
     .hero-title { font-family: 'Bungee', cursive; font-size: clamp(3rem, 12vw, 7rem); line-height: 0.9; margin-bottom: 1rem; }
@@ -46,9 +56,12 @@
     .btn-primary:hover { transform: translate(-2px, -2px); box-shadow: 8px 8px 0 var(--gold); }
     .btn-secondary { background: transparent; border: 2px solid var(--gold); color: var(--gold); }
     .btn-secondary:hover { background: var(--gold); color: #0a0705; transform: translate(-2px, -2px); }
+    
     .fade-up { opacity: 0; transform: translateY(25px); animation: fadeUp 0.6s forwards; }
     @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
     .delay-1 { animation-delay: 0.1s; } .delay-2 { animation-delay: 0.2s; } .delay-3 { animation-delay: 0.3s; } .delay-4 { animation-delay: 0.4s; }
+    
+    /* Stage with Orbits */
     .stage { position: relative; aspect-ratio: 1; max-width: 420px; margin: 0 auto; display: flex; align-items: center; justify-content: center; }
     .orbit-ring { position: absolute; top: 50%; left: 50%; width: 100%; height: 100%; border-radius: 50%; transform: translate(-50%, -50%); pointer-events: none; }
     .ring-dashed { border: 2px dashed var(--gold); animation: spinRing 24s linear infinite; }
@@ -56,40 +69,57 @@
     .ring-dotted { border: 2px dotted var(--gold); width: 70%; height: 70%; animation: spinRing 12s linear infinite; }
     @keyframes spinRing { 0% { transform: translate(-50%, -50%) rotate(0deg); } 100% { transform: translate(-50%, -50%) rotate(360deg); } }
     @keyframes spinRingReverse { 0% { transform: translate(-50%, -50%) rotate(0deg); } 100% { transform: translate(-50%, -50%) rotate(-360deg); } }
+    
     .yt-badge { width: 62%; height: 62%; background: radial-gradient(circle, #b31217, #5a0c0e); border-radius: 28%; border: 3px solid var(--gold); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.3s; animation: pulseGlow 3s infinite; padding: 8px; }
-    .badge-logo { width: 90%; height: auto; max-height: 90%; object-fit: contain; border-radius: 16px; animation: badgePulse 2s infinite; }
-    @keyframes badgePulse { 0% { transform: scale(1); } 50% { transform: scale(1.03); } 100% { transform: scale(1); } }
+    .badge-logo { width: 90%; height: auto; max-height: 90%; object-fit: contain; border-radius: 16px; animation: badgeScale 2s infinite; }
+    @keyframes badgeScale { 0% { transform: scale(1); } 50% { transform: scale(1.03); } 100% { transform: scale(1); } }
     .yt-badge:hover { transform: scale(1.02) rotate(-2deg); box-shadow: 0 0 20px var(--gold), 0 0 40px var(--lava); }
-    @keyframes pulseGlow { 0% { box-shadow: 0 0 0 0 rgba(255,204,0,0.4), inset 0 0 8px rgba(255,45,31,0.5); } 50% { box-shadow: 0 0 0 12px rgba(255,204,0,0), 0 0 0 24px rgba(255,45,31,0), inset 0 0 18px #ff7a00; } 100% { box-shadow: 0 0 0 0 rgba(255,204,0,0), inset 0 0 8px rgba(255,45,31,0.5); } }
+    @keyframes pulseGlow { 0% { box-shadow: 0 0 0 0 rgba(255,204,0,0.4), inset 0 0 8px rgba(255,45,31,0.5); } 50% { box-shadow: 0 0 0 12px rgba(255,204,0,0), inset 0 0 18px #ff7a00; } 100% { box-shadow: 0 0 0 0 rgba(255,204,0,0), inset 0 0 8px rgba(255,45,31,0.5); } }
+    
     .corner-tag { position: absolute; font-family: 'JetBrains Mono', monospace; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); padding: 0.2rem 0.6rem; border-radius: 20px; font-size: 0.7rem; font-weight: bold; }
     .tag-tl { top: 10px; left: 10px; color: var(--gold); border: 1px solid var(--gold); }
     .tag-br { bottom: 10px; right: 10px; color: var(--lava); border: 1px solid var(--lava); }
+    
+    /* Marquee */
     .marquee-band { border-top: 1px solid rgba(255,45,31,0.4); border-bottom: 1px solid rgba(255,45,31,0.4); background: rgba(255,45,31,0.05); padding: 1rem 0; overflow: hidden; white-space: nowrap; }
-    .marquee { display: inline-block; font-family: 'Bungee', cursive; font-size: 1.8rem; color: var(--gold); animation: scrollMarquee 30s linear infinite; }
+    .marquee { display: inline-block; font-family: 'Bungee', cursive; font-size: 1.8rem; color: var(--gold); animation: scrollMarquee 30s linear infinite; letter-spacing: 2px; }
+    .marquee span { margin-right: 2rem; }
     @keyframes scrollMarquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    
     .section-title { font-family: 'Bungee', cursive; font-size: 2.2rem; color: var(--gold); margin-bottom: 2rem; border-left: 6px solid var(--lava); padding-left: 1rem; }
     .two-panel { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
-    .panel-card { background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); padding: 2rem; position: relative; border-radius: 20px; }
+    .panel-card { background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); padding: 2rem; position: relative; border-radius: 20px; transition: transform 0.2s, box-shadow 0.2s; }
+    .panel-card:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(255,45,31,0.2); }
     .corner-L { position: absolute; top: 12px; left: 12px; width: 40px; height: 40px; border-top: 3px solid var(--gold); border-left: 3px solid var(--gold); }
     .corner-L-br { bottom: 12px; right: 12px; top: auto; left: auto; border-top: none; border-left: none; border-bottom: 3px solid var(--lava); border-right: 3px solid var(--lava); }
     .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1rem; }
     .stat-number { font-family: 'Bungee', cursive; font-size: 2.8rem; color: var(--gold); text-align: center; }
     .stat-label { font-family: 'JetBrains Mono', monospace; text-transform: uppercase; font-size: 0.7rem; color: var(--text-muted); text-align: center; }
+    
+    /* Social Grid */
     .social-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.8rem; margin-top: 1rem; }
-    .social-card { background: rgba(0,0,0,0.55); backdrop-filter: blur(4px); border-radius: 24px; padding: 1.5rem; transition: 0.25s; position: relative; text-decoration: none; color: inherit; display: block; }
-    .social-card:hover { transform: translateY(-6px) rotate(-0.5deg); box-shadow: 0 12px 28px rgba(255,45,31,0.2); }
+    .social-card { background: rgba(0,0,0,0.55); backdrop-filter: blur(4px); border-radius: 24px; padding: 1.5rem; transition: 0.25s cubic-bezier(0.34,1.56,0.64,1); text-decoration: none; color: inherit; display: block; position: relative; }
+    .social-card:hover { transform: translateY(-8px) rotate(-0.5deg); box-shadow: 0 15px 35px rgba(255,45,31,0.25); }
     .social-icon { font-size: 2.8rem; margin-bottom: 1rem; }
     .social-name { font-family: 'Bungee', cursive; font-size: 1.4rem; }
+    .social-handle { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--text-muted); margin-top: 8px; }
     .status-pill { position: absolute; top: 12px; left: 12px; background: #26a641; color: black; font-size: 0.6rem; font-weight: bold; padding: 2px 8px; border-radius: 40px; }
     .soon-tag { position: absolute; top: 12px; left: 12px; background: #5a4c3c; color: #ffcc00; font-size: 0.6rem; padding: 2px 8px; border-radius: 40px; }
-    .soon-card { opacity: 0.55; }
+    .soon-card { opacity: 0.55; transition: 0.2s; }
+    .soon-card:hover { opacity: 0.75; transform: translateY(-8px) rotate(-0.5deg); }
+    
     .chip-list { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1.5rem; }
-    .chip { font-family: 'JetBrains Mono', monospace; text-transform: uppercase; background: rgba(255,204,0,0.1); border: 1px solid rgba(255,204,0,0.3); padding: 0.5rem 1rem; border-radius: 40px; transition: 0.2s; font-size: 0.8rem; }
+    .chip { font-family: 'JetBrains Mono', monospace; text-transform: uppercase; background: rgba(255,204,0,0.1); border: 1px solid rgba(255,204,0,0.3); padding: 0.5rem 1rem; border-radius: 40px; transition: 0.2s; font-size: 0.8rem; cursor: default; }
     .chip.hot { background: var(--lava); border-color: var(--gold); color: white; }
     .chip:hover { background: var(--gold); color: #0a0705; transform: translateY(-3px); }
-    footer { border-top: 1px solid rgba(255,45,31,0.3); padding: 2rem; display: flex; justify-content: space-between; flex-wrap: wrap; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--text-muted); }
+    
+    footer { border-top: 1px solid rgba(255,45,31,0.3); padding: 2rem; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--text-muted); }
     .heart { color: var(--lava); display: inline-block; animation: pulseScale 1.5s infinite; }
-    @media (max-width: 760px) { .two-panel { grid-template-columns: 1fr; } .container { padding: 1.5rem; } }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { color: var(--text-muted); text-decoration: none; transition: 0.2s; }
+    .footer-links a:hover { color: var(--gold); }
+    
+    @media (max-width: 760px) { .two-panel { grid-template-columns: 1fr; } .container { padding: 1.5rem; } .footer-links { flex-wrap: wrap; } }
   </style>
 </head>
 <body>
@@ -99,24 +129,28 @@
   <div class="bg-layer noise-texture"></div>
   <div class="ember-container" id="emberContainer"></div>
 
+  <!-- Navigation -->
   <nav class="glass-nav">
     <div class="nav-inner">
       <div class="brand">
-        <!-- 👇 PASTE YOUR DIRECT IMAGE URL HERE 👇 -->
-        <img class="brand-logo" src="https://ibb.co/xtWjsFMC" alt="TurboIG Logo" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 fill=%27%23ff2d1f%27/%3E%3Ctext x=%2750%27 y=%2765%27 font-size=%2740%27 text-anchor=%27middle%27 fill=%27%23ffcc00%27%3ETIG%3C/text%3E%3C/svg%3E';">
+        <!-- 👇 YAHAN AAPKI ROOT WALI IMAGE KA NAAM LIKHEN 👇 -->
+        <img class="brand-logo" src="turbo-logo.png" alt="TurboIG Logo" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 fill=%27%23ff2d1f%27/%3E%3Ctext x=%2750%27 y=%2765%27 font-size=%2740%27 text-anchor=%27middle%27 fill=%27%23ffcc00%27%3ETIG%3C/text%3E%3C/svg%3E';">
         <div class="brand-text">TURBO<span class="brand-dot"></span>IG</div>
       </div>
-      <div class="nav-links">
-        <a href="#">About</a>
-        <a href="#">Socials</a>
-        <a href="#">Games</a>
+      <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+      <div class="nav-links" id="navLinks">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#socials">Socials</a>
+        <a href="#games">Games</a>
         <a href="#" id="discordNavLink">Discord</a>
       </div>
     </div>
   </nav>
 
   <main>
-    <div class="container">
+    <!-- Hero Section -->
+    <div class="container" id="home">
       <div class="hero-grid">
         <div>
           <div class="kicker fade-up delay-1"><span class="blink-lava"></span> ■ MINECRAFT SMP CREATOR · UNIQUE VIDEOS · TRY-HARD</div>
@@ -133,8 +167,8 @@
             <div class="orbit-ring ring-solid"></div>
             <div class="orbit-ring ring-dotted"></div>
             <div class="yt-badge" id="centerpieceBadge">
-              <!-- 👇 PASTE SAME DIRECT URL HERE 👇 -->
-              <img class="badge-logo" src="https://ibb.co/xtWjsFMC" alt="TurboIG Logo" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 fill=%27%23ff2d1f%27/%3E%3Ctext x=%2750%27 y=%2765%27 font-size=%2740%27 text-anchor=%27middle%27 fill=%27%23ffcc00%27%3ETIG%3C/text%3E%3C/svg%3E';">
+              <!-- 👇 YAHAN BHI WOHI NAAM LIKHEN 👇 -->
+              <img class="badge-logo" src="turbo-logo.png" alt="TurboIG Logo" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 fill=%27%23ff2d1f%27/%3E%3Ctext x=%2750%27 y=%2765%27 font-size=%2740%27 text-anchor=%27middle%27 fill=%27%23ffcc00%27%3ETIG%3C/text%3E%3C/svg%3E';">
             </div>
             <div class="corner-tag tag-tl">CH // TURBOIG</div>
             <div class="corner-tag tag-br">● REC</div>
@@ -143,21 +177,24 @@
       </div>
     </div>
 
+    <!-- Marquee -->
     <div class="marquee-band"><div class="marquee"><span>MINE ◆ CRAFT ◆ BUILD ◆ EXPLODE ◆ REPEAT ◆ TURBO IG ◆ SMP STORIES ◆ UNIQUE VIDEOS ◆</span><span>MINE ◆ CRAFT ◆ BUILD ◆ EXPLODE ◆ REPEAT ◆ TURBO IG ◆ SMP STORIES ◆ UNIQUE VIDEOS ◆</span></div></div>
 
-    <div class="container">
+    <!-- About Section -->
+    <div class="container" id="about">
       <h2 class="section-title">01 // WHO IS TURBOIG?</h2>
       <div class="two-panel">
-        <div class="panel-card"><div class="corner-L"></div><div class="corner-L corner-L-br"></div><h3 style="font-family:'Bungee'">THE CREATOR</h3><p>Hey, I'm TurboIG — a Minecraft SMP storyteller crafting unique, never-seen-before videos. From wild redstone contraptions to immersive SMP plots, I bring chaotic energy and original edits. If it has pixels, I'm trying it.</p></div>
-        <div class="panel-card"><div class="corner-L"></div><div class="corner-L corner-L-br"></div><h3 style="font-family:'Bungee'">THE NUMBERS</h3><div class="stats-grid"><div><div class="stat-number">∞</div><div class="stat-label">Games Tried</div></div><div><div class="stat-number">24/7</div><div class="stat-label">Grind Mode</div></div><div><div class="stat-number">100%</div><div class="stat-label">Minecraft DNA</div></div><div><div class="stat-number">UNIQUE</div><div class="stat-label">SMP Videos</div></div></div></div>
+        <div class="panel-card"><div class="corner-L"></div><div class="corner-L corner-L-br"></div><h3 style="font-family:'Bungee'; margin-bottom:1rem"><i class="fas fa-user-astronaut"></i> THE CREATOR</h3><p>Hey, I'm TurboIG — a Minecraft SMP storyteller crafting unique, never-seen-before videos. From wild redstone contraptions to immersive SMP plots, I bring chaotic energy and original edits. If it has pixels, I'm trying it. <strong>#SMPLife #UniqueEdits</strong></p></div>
+        <div class="panel-card"><div class="corner-L"></div><div class="corner-L corner-L-br"></div><h3 style="font-family:'Bungee'; margin-bottom:1rem"><i class="fas fa-chart-line"></i> THE NUMBERS</h3><div class="stats-grid"><div><div class="stat-number">∞</div><div class="stat-label">Games Tried</div></div><div><div class="stat-number">24/7</div><div class="stat-label">Grind Mode</div></div><div><div class="stat-number">100%</div><div class="stat-label">Minecraft DNA</div></div><div><div class="stat-number">UNIQUE</div><div class="stat-label">SMP Videos</div></div></div></div>
       </div>
     </div>
 
-    <div class="container">
+    <!-- Socials Section -->
+    <div class="container" id="socials">
       <h2 class="section-title">02 // FIND ME EVERYWHERE</h2>
       <div class="social-grid">
-        <a href="https://www.youtube.com/@turboig" target="_blank" class="social-card"><div class="status-pill">● ONLINE</div><div class="social-icon"><i class="fab fa-youtube"></i></div><div class="social-name">YouTube</div><div class="social-handle">@turboig</div></a>
-        <a href="https://discord.gg/qdkwHAc3yD" target="_blank" class="social-card"><div class="status-pill">● ONLINE</div><div class="social-icon"><i class="fab fa-discord"></i></div><div class="social-name">Discord</div><div class="social-handle">ALL THINGS! SMP</div></a>
+        <a href="https://www.youtube.com/@turboig" target="_blank" rel="noopener noreferrer" class="social-card"><div class="status-pill">● ONLINE</div><div class="social-icon"><i class="fab fa-youtube"></i></div><div class="social-name">YouTube</div><div class="social-handle">@turboig</div><i class="fas fa-arrow-up-right-from-square" style="position:absolute; bottom:16px; right:16px; opacity:0.6"></i></a>
+        <a href="https://discord.gg/qdkwHAc3yD" target="_blank" rel="noopener noreferrer" class="social-card"><div class="status-pill">● ONLINE</div><div class="social-icon"><i class="fab fa-discord"></i></div><div class="social-name">Discord</div><div class="social-handle">ALL THINGS! SMP</div><i class="fas fa-arrow-up-right-from-square" style="position:absolute; bottom:16px; right:16px; opacity:0.6"></i></a>
         <div class="social-card soon-card"><div class="soon-tag">SOON</div><div class="social-icon"><i class="fab fa-instagram"></i></div><div class="social-name">Instagram</div><div class="social-handle">@turboig (coming)</div></div>
         <div class="social-card soon-card"><div class="soon-tag">SOON</div><div class="social-icon"><i class="fab fa-tiktok"></i></div><div class="social-name">TikTok</div><div class="social-handle">@turboig (soon)</div></div>
         <div class="social-card soon-card"><div class="soon-tag">SOON</div><div class="social-icon"><i class="fab fa-twitter"></i></div><div class="social-name">Twitter/X</div><div class="social-handle">@turboig (soon)</div></div>
@@ -165,27 +202,63 @@
       </div>
     </div>
 
-    <div class="container">
+    <!-- Games Section -->
+    <div class="container" id="games">
       <h2 class="section-title">03 // GAMES I DESTROY</h2>
-      <div class="panel-card"><p style="margin-bottom:1rem">From blocky SMP realms to battle royales — every game gets the TurboIG touch.</p><div class="chip-list"><div class="chip hot">🔥 Minecraft (SMP)</div><div class="chip">Fortnite</div><div class="chip">Roblox</div><div class="chip">Valorant</div><div class="chip">GTA V</div><div class="chip">Among Us</div><div class="chip">Call of Duty</div><div class="chip">Rocket League</div><div class="chip">Fall Guys</div><div class="chip">Apex Legends</div><div class="chip">PUBG</div><div class="chip hot">🔥 + every new drop</div></div></div>
+      <div class="panel-card"><p style="margin-bottom:1rem">From blocky SMP realms to battle royales — every game gets the TurboIG unique touch.</p><div class="chip-list"><div class="chip hot">🔥 Minecraft (SMP)</div><div class="chip">Fortnite</div><div class="chip">Roblox</div><div class="chip">Valorant</div><div class="chip">GTA V</div><div class="chip">Among Us</div><div class="chip">Call of Duty</div><div class="chip">Rocket League</div><div class="chip">Fall Guys</div><div class="chip">Apex Legends</div><div class="chip">PUBG</div><div class="chip hot">🔥 + every new drop</div></div></div>
     </div>
   </main>
 
-  <footer><div>© <span id="currentYear"></span> TURBOIG // ALL RIGHTS MINED</div><div>BUILT WITH <span class="heart">♥</span> + REDSTONE</div></footer>
+  <!-- Footer -->
+  <footer>
+    <div>© <span id="currentYear"></span> TURBOIG // ALL RIGHTS MINED</div>
+    <div class="footer-links">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#socials">Socials</a>
+      <a href="#games">Games</a>
+    </div>
+    <div>BUILT WITH <span class="heart">♥</span> + REDSTONE</div>
+  </footer>
 </div>
 
 <script>
   (function() {
+    // Ember Particles
     const emberContainer = document.getElementById('emberContainer');
     function createEmber() { if(!emberContainer) return; const e=document.createElement('div'); e.className='ember'; e.style.left=Math.random()*100+'%'; e.style.animationDuration=(Math.random()*8+6)+'s'; e.style.setProperty('--drift', (Math.random()-0.5)*120+'px'); emberContainer.appendChild(e); setTimeout(()=>e.remove(), 10000); }
     setInterval(createEmber, 280);
+    
+    // Open functions
     function openYouTube() { window.open('https://www.youtube.com/@turboig', '_blank'); }
     function openDiscord() { window.open('https://discord.gg/qdkwHAc3yD', '_blank'); }
+    
+    // Event listeners
     document.getElementById('ctaYoutubeBtn')?.addEventListener('click', openYouTube);
     document.getElementById('ctaDiscordBtn')?.addEventListener('click', openDiscord);
     document.getElementById('centerpieceBadge')?.addEventListener('click', openYouTube);
     document.getElementById('discordNavLink')?.addEventListener('click', (e) => { e.preventDefault(); openDiscord(); });
+    
+    // Mobile menu
+    const mobileBtn = document.getElementById('mobileMenuBtn');
+    const navLinks = document.getElementById('navLinks');
+    if(mobileBtn && navLinks) {
+      mobileBtn.addEventListener('click', () => { navLinks.classList.toggle('active'); });
+      document.querySelectorAll('.nav-links a').forEach(link => { link.addEventListener('click', () => { navLinks.classList.remove('active'); }); });
+    }
+    
+    // Current year
     document.getElementById('currentYear').textContent = new Date().getFullYear();
+    
+    // Smooth scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const targetId = this.getAttribute('href');
+        if(targetId === '#') return;
+        const target = document.querySelector(targetId);
+        if(target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+      });
+    });
   })();
 </script>
 </body>
