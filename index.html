@@ -10,7 +10,7 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { background-color: #0a0705; font-family: 'Outfit', sans-serif; color: #fff6e0; line-height: 1.4; overflow-x: hidden; }
-    :root { --lava: #ff2d1f; --gold: #ffcc00; --text-dim: #c9b896; --text-muted: #8a7a60; }
+    :root { --lava: #ff2d1f; --gold: #ffcc00; --text-dim: #c9b896; --text-muted: #8a7a60; --glass-bg: rgba(10,7,5,0.65); }
     
     /* Background Layers */
     .bg-layer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
@@ -87,39 +87,65 @@
     @keyframes scrollMarquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
     
     .section-title { font-family: 'Bungee', cursive; font-size: 2.2rem; color: var(--gold); margin-bottom: 2rem; border-left: 6px solid var(--lava); padding-left: 1rem; }
-    .two-panel { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
-    .panel-card { background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); padding: 2rem; position: relative; border-radius: 20px; transition: transform 0.2s, box-shadow 0.2s; }
-    .panel-card:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(255,45,31,0.2); }
-    .corner-L { position: absolute; top: 12px; left: 12px; width: 40px; height: 40px; border-top: 3px solid var(--gold); border-left: 3px solid var(--gold); }
-    .corner-L-br { bottom: 12px; right: 12px; top: auto; left: auto; border-top: none; border-left: none; border-bottom: 3px solid var(--lava); border-right: 3px solid var(--lava); }
-    .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1rem; }
-    .stat-number { font-family: 'Bungee', cursive; font-size: 2.8rem; color: var(--gold); text-align: center; }
-    .stat-label { font-family: 'JetBrains Mono', monospace; text-transform: uppercase; font-size: 0.7rem; color: var(--text-muted); text-align: center; }
     
-    /* Social Grid */
-    .social-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.8rem; margin-top: 1rem; }
-    .social-card { background: rgba(0,0,0,0.55); backdrop-filter: blur(4px); border-radius: 24px; padding: 1.5rem; transition: 0.25s cubic-bezier(0.34,1.56,0.64,1); text-decoration: none; color: inherit; display: block; position: relative; }
-    .social-card:hover { transform: translateY(-8px) rotate(-0.5deg); box-shadow: 0 15px 35px rgba(255,45,31,0.25); }
-    .social-icon { font-size: 2.8rem; margin-bottom: 1rem; }
-    .social-name { font-family: 'Bungee', cursive; font-size: 1.4rem; }
-    .social-handle { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--text-muted); margin-top: 8px; }
-    .status-pill { position: absolute; top: 12px; left: 12px; background: #26a641; color: black; font-size: 0.6rem; font-weight: bold; padding: 2px 8px; border-radius: 40px; }
-    .soon-tag { position: absolute; top: 12px; left: 12px; background: #5a4c3c; color: #ffcc00; font-size: 0.6rem; padding: 2px 8px; border-radius: 40px; }
-    .soon-card { opacity: 0.55; transition: 0.2s; }
-    .soon-card:hover { opacity: 0.75; transform: translateY(-8px) rotate(-0.5deg); }
+    /* === NEW: Professional Feature Styles (inspired by CleverExtreme) === */
     
-    .chip-list { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1.5rem; }
-    .chip { font-family: 'JetBrains Mono', monospace; text-transform: uppercase; background: rgba(255,204,0,0.1); border: 1px solid rgba(255,204,0,0.3); padding: 0.5rem 1rem; border-radius: 40px; transition: 0.2s; font-size: 0.8rem; cursor: default; }
-    .chip.hot { background: var(--lava); border-color: var(--gold); color: white; }
-    .chip:hover { background: var(--gold); color: #0a0705; transform: translateY(-3px); }
+    /* Service Cards (3-column) */
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin: 2rem 0; }
+    .service-card { background: var(--glass-bg); backdrop-filter: blur(8px); border: 1px solid rgba(255,204,0,0.15); border-radius: 24px; padding: 2rem; transition: 0.3s cubic-bezier(0.34,1.56,0.64,1); position: relative; overflow: hidden; }
+    .service-card::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255,204,0,0.06), transparent 60%); pointer-events: none; transition: 0.4s; }
+    .service-card:hover { transform: translateY(-8px); border-color: var(--gold); box-shadow: 0 12px 40px rgba(255,45,31,0.15); }
+    .service-icon { font-size: 2.8rem; color: var(--gold); margin-bottom: 1rem; display: block; }
+    .service-title { font-family: 'Bungee', cursive; font-size: 1.3rem; color: var(--gold); margin-bottom: 0.5rem; }
+    .service-desc { color: var(--text-dim); font-size: 0.95rem; line-height: 1.6; }
+    .service-tag { display: inline-block; margin-top: 1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--lava); border: 1px solid var(--lava); padding: 0.2rem 0.8rem; border-radius: 40px; }
     
-    footer { border-top: 1px solid rgba(255,45,31,0.3); padding: 2rem; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--text-muted); }
-    .heart { color: var(--lava); display: inline-block; animation: pulseScale 1.5s infinite; }
-    .footer-links { display: flex; gap: 1.5rem; }
-    .footer-links a { color: var(--text-muted); text-decoration: none; transition: 0.2s; }
-    .footer-links a:hover { color: var(--gold); }
+    /* Stats Bar (horizontal stats) */
+    .stats-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 1rem; background: var(--glass-bg); backdrop-filter: blur(8px); border-radius: 20px; padding: 2rem; border: 1px solid rgba(255,204,0,0.1); margin: 2rem 0; }
+    .stat-item { text-align: center; }
+    .stat-number-lg { font-family: 'Bungee', cursive; font-size: 2.8rem; color: var(--gold); line-height: 1; }
+    .stat-label-sm { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 0.3rem; }
     
-    @media (max-width: 760px) { .two-panel { grid-template-columns: 1fr; } .container { padding: 1.5rem; } .footer-links { flex-wrap: wrap; } }
+    /* Showcase Grid */
+    .showcase-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2rem; margin: 2rem 0; }
+    .showcase-item { background: var(--glass-bg); backdrop-filter: blur(8px); border-radius: 20px; padding: 1.8rem; border: 1px solid rgba(255,204,0,0.08); transition: 0.3s; }
+    .showcase-item:hover { border-color: var(--gold); transform: scale(1.02); box-shadow: 0 8px 30px rgba(255,45,31,0.1); }
+    .showcase-item h4 { font-family: 'Bungee', cursive; color: var(--gold); font-size: 1.1rem; margin-bottom: 0.5rem; }
+    .showcase-item p { color: var(--text-dim); font-size: 0.9rem; line-height: 1.5; }
+    .showcase-icon { color: var(--lava); margin-right: 0.5rem; }
+    
+    /* Testimonials */
+    .testimonial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
+    .testimonial-card { background: var(--glass-bg); backdrop-filter: blur(8px); border-radius: 16px; padding: 1.5rem; border-left: 4px solid var(--gold); }
+    .testimonial-card p { font-style: italic; color: var(--text-dim); font-size: 0.95rem; line-height: 1.5; }
+    .testimonial-card .author { font-family: 'Bungee', cursive; color: var(--gold); font-size: 0.9rem; margin-top: 0.8rem; }
+    
+    /* Contact Section */
+    .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; margin: 2rem 0; }
+    .contact-method { background: var(--glass-bg); backdrop-filter: blur(8px); border-radius: 20px; padding: 2rem; text-align: center; border: 1px solid rgba(255,204,0,0.08); transition: 0.3s; }
+    .contact-method:hover { border-color: var(--gold); transform: translateY(-4px); }
+    .contact-method .icon { font-size: 2.5rem; color: var(--gold); margin-bottom: 0.8rem; }
+    .contact-method .label { font-family: 'Bungee', cursive; color: var(--gold); font-size: 1rem; }
+    .contact-method .detail { color: var(--text-muted); font-size: 0.85rem; margin-top: 0.3rem; font-family: 'JetBrains Mono', monospace; }
+    .contact-method .sub { color: var(--text-dim); font-size: 0.75rem; margin-top: 0.5rem; }
+    
+    /* Availability Badge */
+    .availability-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(38,166,65,0.15); border: 1px solid #26a641; color: #26a641; padding: 0.5rem 1.2rem; border-radius: 40px; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; }
+    .availability-badge .dot { display: inline-block; width: 8px; height: 8px; background: #26a641; border-radius: 50%; animation: pulseScale 1.5s infinite; }
+    
+    /* Responsive tweaks */
+    @media (max-width: 760px) { 
+      .two-panel { grid-template-columns: 1fr; } 
+      .container { padding: 1.5rem; } 
+      .footer-links { flex-wrap: wrap; }
+      .stats-bar { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 480px) {
+      .services-grid { grid-template-columns: 1fr; }
+      .showcase-grid { grid-template-columns: 1fr; }
+      .testimonial-grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
@@ -133,7 +159,6 @@
   <nav class="glass-nav">
     <div class="nav-inner">
       <div class="brand">
-        <!-- ✅ LOGO: TurboIG.logo.png -->
         <img class="brand-logo" src="TurboIG.logo.png" alt="TurboIG Logo" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 fill=%27%23ff2d1f%27/%3E%3Ctext x=%2750%27 y=%2765%27 font-size=%2740%27 text-anchor=%27middle%27 fill=%27%23ffcc00%27%3ETIG%3C/text%3E%3C/svg%3E';">
         <div class="brand-text">TURBO<span class="brand-dot"></span>IG</div>
       </div>
@@ -141,8 +166,9 @@
       <div class="nav-links" id="navLinks">
         <a href="#home">Home</a>
         <a href="#about">About</a>
-        <a href="#socials">Socials</a>
-        <a href="#games">Games</a>
+        <a href="#services">Services</a>
+        <a href="#showcase">Showcase</a>
+        <a href="#contact">Contact</a>
         <a href="#" id="discordNavLink">Discord</a>
       </div>
     </div>
@@ -167,7 +193,6 @@
             <div class="orbit-ring ring-solid"></div>
             <div class="orbit-ring ring-dotted"></div>
             <div class="yt-badge" id="centerpieceBadge">
-              <!-- ✅ LOGO: TurboIG.logo.png -->
               <img class="badge-logo" src="TurboIG.logo.png" alt="TurboIG Logo" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 fill=%27%23ff2d1f%27/%3E%3Ctext x=%2750%27 y=%2765%27 font-size=%2740%27 text-anchor=%27middle%27 fill=%27%23ffcc00%27%3ETIG%3C/text%3E%3C/svg%3E';">
             </div>
             <div class="corner-tag tag-tl">CH // TURBOIG</div>
@@ -180,18 +205,126 @@
     <!-- Marquee -->
     <div class="marquee-band"><div class="marquee"><span>MINE ◆ CRAFT ◆ BUILD ◆ EXPLODE ◆ REPEAT ◆ TURBO IG ◆ SMP STORIES ◆ UNIQUE VIDEOS ◆</span><span>MINE ◆ CRAFT ◆ BUILD ◆ EXPLODE ◆ REPEAT ◆ TURBO IG ◆ SMP STORIES ◆ UNIQUE VIDEOS ◆</span></div></div>
 
-    <!-- About Section -->
+    <!-- About Section (Enhanced) -->
     <div class="container" id="about">
       <h2 class="section-title">01 // WHO IS TURBOIG?</h2>
       <div class="two-panel">
-        <div class="panel-card"><div class="corner-L"></div><div class="corner-L corner-L-br"></div><h3 style="font-family:'Bungee'; margin-bottom:1rem"><i class="fas fa-user-astronaut"></i> THE CREATOR</h3><p>Hey, I'm TurboIG — a Minecraft SMP storyteller crafting unique, never-seen-before videos. From wild redstone contraptions to immersive SMP plots, I bring chaotic energy and original edits. If it has pixels, I'm trying it. <strong>#SMPLife #UniqueEdits</strong></p></div>
-        <div class="panel-card"><div class="corner-L"></div><div class="corner-L corner-L-br"></div><h3 style="font-family:'Bungee'; margin-bottom:1rem"><i class="fas fa-chart-line"></i> THE NUMBERS</h3><div class="stats-grid"><div><div class="stat-number">∞</div><div class="stat-label">Games Tried</div></div><div><div class="stat-number">24/7</div><div class="stat-label">Grind Mode</div></div><div><div class="stat-number">100%</div><div class="stat-label">Minecraft DNA</div></div><div><div class="stat-number">UNIQUE</div><div class="stat-label">SMP Videos</div></div></div></div>
+        <div class="panel-card"><div class="corner-L"></div><div class="corner-L corner-L-br"></div>
+          <h3 style="font-family:'Bungee'; margin-bottom:1rem"><i class="fas fa-user-astronaut"></i> THE CREATOR</h3>
+          <p>Hey, I'm TurboIG — a Minecraft SMP storyteller crafting unique, never-seen-before videos. From wild redstone contraptions to immersive SMP plots, I bring chaotic energy and original edits. If it has pixels, I'm trying it. <strong>#SMPLife #UniqueEdits</strong></p>
+          <div style="margin-top:1.5rem; display:flex; gap:0.8rem; flex-wrap:wrap;">
+            <span class="availability-badge"><span class="dot"></span> Currently Grinding</span>
+            <span style="font-family:'JetBrains Mono'; font-size:0.7rem; color:var(--text-muted); border:1px solid rgba(255,255,255,0.1); padding:0.3rem 0.8rem; border-radius:40px;">⏳ 24/7 Content Mode</span>
+          </div>
+        </div>
+        <div class="panel-card"><div class="corner-L"></div><div class="corner-L corner-L-br"></div>
+          <h3 style="font-family:'Bungee'; margin-bottom:1rem"><i class="fas fa-chart-line"></i> THE NUMBERS</h3>
+          <div class="stats-grid"><div><div class="stat-number">∞</div><div class="stat-label">Games Tried</div></div><div><div class="stat-number">24/7</div><div class="stat-label">Grind Mode</div></div><div><div class="stat-number">100%</div><div class="stat-label">Minecraft DNA</div></div><div><div class="stat-number">UNIQUE</div><div class="stat-label">SMP Videos</div></div></div>
+        </div>
+      </div>
+      
+      <!-- NEW: Stats Bar (inspired by CleverExtreme) -->
+      <div class="stats-bar">
+        <div class="stat-item"><div class="stat-number-lg">3+</div><div class="stat-label-sm">Years Creating</div></div>
+        <div class="stat-item"><div class="stat-number-lg">50+</div><div class="stat-label-sm">Videos Published</div></div>
+        <div class="stat-item"><div class="stat-number-lg">100K+</div><div class="stat-label-sm">Total Views</div></div>
+        <div class="stat-item"><div class="stat-number-lg">15+</div><div class="stat-label-sm">SMPs Explored</div></div>
+        <div class="stat-item"><div class="stat-number-lg">∞</div><div class="stat-label-sm">Games Tried</div></div>
       </div>
     </div>
 
-    <!-- Socials Section -->
+    <!-- NEW: Services Section (inspired by CleverExtreme) -->
+    <div class="container" id="services">
+      <h2 class="section-title">02 // WHAT I OFFER</h2>
+      <div class="services-grid">
+        <div class="service-card">
+          <span class="service-icon"><i class="fas fa-film"></i></span>
+          <div class="service-title">Unique SMP Edits</div>
+          <div class="service-desc">Cinematic storytelling with custom redstone contraptions, immersive plots, and high-energy edits that make every SMP video stand out.</div>
+          <span class="service-tag">● UNIQUE STYLE</span>
+        </div>
+        <div class="service-card">
+          <span class="service-icon"><i class="fas fa-gamepad"></i></span>
+          <div class="service-title">Multi-Game Content</div>
+          <div class="service-desc">From Minecraft to battle royales — I bring the same chaotic energy and unique editing style to every game I touch. Variety keeps it fresh.</div>
+          <span class="service-tag">● EVERY GAME</span>
+        </div>
+        <div class="service-card">
+          <span class="service-icon"><i class="fas fa-users"></i></span>
+          <div class="service-title">Community & Collaboration</div>
+          <div class="service-desc">Building a vibrant community with interactive SMP events, collabs, and behind-the-scenes content that brings viewers into the story.</div>
+          <span class="service-tag">● COMMUNITY FIRST</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- NEW: Showcase Section (inspired by CleverExtreme) -->
+    <div class="container" id="showcase">
+      <h2 class="section-title">03 // FEATURED PROJECTS</h2>
+      <div class="showcase-grid">
+        <div class="showcase-item">
+          <h4><span class="showcase-icon"><i class="fas fa-dragon"></i></span> SMP War Arc</h4>
+          <p>Full cinematic war series with custom builds, faction battles, and an epic storyline that kept viewers on the edge of their seats.</p>
+        </div>
+        <div class="showcase-item">
+          <h4><span class="showcase-icon"><i class="fas fa-robot"></i></span> Redstone Madness</h4>
+          <p>Insane redstone contraptions and mini-games built entirely in survival — from working computers to automated farms.</p>
+        </div>
+        <div class="showcase-item">
+          <h4><span class="showcase-icon"><i class="fas fa-globe"></i></span> Variety Game Rush</h4>
+          <p>Jumped into 10+ different games in a single month, bringing the TurboIG style to every title and building a multi-game audience.</p>
+        </div>
+        <div class="showcase-item">
+          <h4><span class="showcase-icon"><i class="fas fa-crown"></i></span> Hardcore SMP Run</h4>
+          <p>Survived and thrived in a hardcore SMP with unique challenges, close calls, and unforgettable moments that defined the season.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- NEW: Testimonials (inspired by CleverExtreme) -->
+    <div class="container">
+      <h2 class="section-title">04 // WHAT THE COMMUNITY SAYS</h2>
+      <div class="testimonial-grid">
+        <div class="testimonial-card"><p>"TurboIG's SMP series is the most creative content I've seen. Every episode feels like a movie."</p><div class="author">— Subscriber ⭐</div></div>
+        <div class="testimonial-card"><p>"The redstone builds are insane! I've never seen anyone do that in survival before."</p><div class="author">— Fellow Creator ⭐</div></div>
+        <div class="testimonial-card"><p>"Hands down the most underrated SMP creator. The editing, the story, the chaos — it's perfect."</p><div class="author">— Viewer ⭐</div></div>
+      </div>
+    </div>
+
+    <!-- NEW: Contact Section (inspired by CleverExtreme) -->
+    <div class="container" id="contact">
+      <h2 class="section-title">05 // LET'S CONNECT</h2>
+      <div class="contact-grid">
+        <div class="contact-method">
+          <div class="icon"><i class="fab fa-youtube"></i></div>
+          <div class="label">YouTube</div>
+          <div class="detail">@turboig</div>
+          <div class="sub">Best for watching content</div>
+        </div>
+        <div class="contact-method">
+          <div class="icon"><i class="fab fa-discord"></i></div>
+          <div class="label">Discord</div>
+          <div class="detail">TurboIG Community</div>
+          <div class="sub">Fastest for collabs & chat</div>
+        </div>
+        <div class="contact-method">
+          <div class="icon"><i class="fas fa-envelope"></i></div>
+          <div class="label">Email</div>
+          <div class="detail">turboig@proton.me</div>
+          <div class="sub">Business & partnerships</div>
+        </div>
+        <div class="contact-method" style="border-color: rgba(38,166,65,0.3);">
+          <div class="icon" style="color:#26a641;"><i class="fas fa-check-circle"></i></div>
+          <div class="label" style="color:#26a641;">Available</div>
+          <div class="detail">Open for Collabs</div>
+          <div class="sub">Typical response within 24h</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Socials Section (kept and enhanced) -->
     <div class="container" id="socials">
-      <h2 class="section-title">02 // FIND ME EVERYWHERE</h2>
+      <h2 class="section-title">06 // FIND ME EVERYWHERE</h2>
       <div class="social-grid">
         <a href="https://www.youtube.com/@turboig" target="_blank" rel="noopener noreferrer" class="social-card"><div class="status-pill">● ONLINE</div><div class="social-icon"><i class="fab fa-youtube"></i></div><div class="social-name">YouTube</div><div class="social-handle">@turboig</div><i class="fas fa-arrow-up-right-from-square" style="position:absolute; bottom:16px; right:16px; opacity:0.6"></i></a>
         <a href="https://discord.gg/qdkwHAc3yD" target="_blank" rel="noopener noreferrer" class="social-card"><div class="status-pill">● ONLINE</div><div class="social-icon"><i class="fab fa-discord"></i></div><div class="social-name">Discord</div><div class="social-handle">ALL THINGS! SMP</div><i class="fas fa-arrow-up-right-from-square" style="position:absolute; bottom:16px; right:16px; opacity:0.6"></i></a>
@@ -202,9 +335,9 @@
       </div>
     </div>
 
-    <!-- Games Section -->
+    <!-- Games Section (kept) -->
     <div class="container" id="games">
-      <h2 class="section-title">03 // GAMES I DESTROY</h2>
+      <h2 class="section-title">07 // GAMES I DESTROY</h2>
       <div class="panel-card"><p style="margin-bottom:1rem">From blocky SMP realms to battle royales — every game gets the TurboIG unique touch.</p><div class="chip-list"><div class="chip hot">🔥 Minecraft (SMP)</div><div class="chip">Fortnite</div><div class="chip">Roblox</div><div class="chip">Valorant</div><div class="chip">GTA V</div><div class="chip">Among Us</div><div class="chip">Call of Duty</div><div class="chip">Rocket League</div><div class="chip">Fall Guys</div><div class="chip">Apex Legends</div><div class="chip">PUBG</div><div class="chip hot">🔥 + every new drop</div></div></div>
     </div>
   </main>
@@ -215,8 +348,9 @@
     <div class="footer-links">
       <a href="#home">Home</a>
       <a href="#about">About</a>
-      <a href="#socials">Socials</a>
-      <a href="#games">Games</a>
+      <a href="#services">Services</a>
+      <a href="#showcase">Showcase</a>
+      <a href="#contact">Contact</a>
     </div>
     <div>BUILT WITH <span class="heart">♥</span> + REDSTONE</div>
   </footer>
@@ -257,6 +391,17 @@
         if(targetId === '#') return;
         const target = document.querySelector(targetId);
         if(target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+      });
+    });
+
+    // Mouse tracking for service cards glow effect
+    document.querySelectorAll('.service-card').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        card.style.setProperty('--mouse-x', x + '%');
+        card.style.setProperty('--mouse-y', y + '%');
       });
     });
   })();
